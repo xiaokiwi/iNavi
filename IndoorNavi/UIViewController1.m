@@ -332,7 +332,7 @@
                     prev_rssi1 = avag_rssi_one;
                     
                     //Translate RSSI value into distance
-                    double txPower = -56;
+                    double txPower = -55;
                     
                     //                    if (avag_rssi_one == 0) {
                     //                        distance_one = -1.0;
@@ -403,7 +403,7 @@
                     prev_rssi2 = avag_rssi_two;
                     
                     //Translate RSSI value into distance
-                    double txPower = -56;
+                    double txPower = -55;
                     
                     distance_two = pow(10,((txPower - avag_rssi_two)/22));
                     NSLog(@"Mint has RSSI: %d and %.1f meters", avag_rssi_two, distance_two);
@@ -464,7 +464,7 @@
                     prev_rssi3 = avag_rssi_three;
                     
                     //Translate RSSI value into distance
-                    double txPower = -56;
+                    double txPower = -55;
                     
                     distance_three = pow(10,((txPower - avag_rssi_three)/22));
                     NSLog(@"Blue has RSSI: %d and %.1f meters", avag_rssi_three, distance_three);
@@ -557,14 +557,14 @@
 
             if (position.x != 0) {
                 //convert to pixels
-                //NSLog(@"WEIGHTED xy: %.1f and %.1f", weighted_x, weighted_y);
+                NSLog(@"WEIGHTED xy: %.1f and %.1f", weighted_x, weighted_y);
                 //for iphone_7plus
-                float x = weighted_x*76.8;  //384/5
-                float y = weighted_y*38.068 + 39; //670/17.6
+                //float x = weighted_x*76.8;  //384/5
+                //float y = weighted_y*38.068 + 39; //670/17.6
                 //NSLog(@"weighted pixel: %.1f and %.1f", x, y);
-                //for iphone 7 plus
-                //float x = weighted_x * 45.1765;
-                //float y= weighted_y * 42.9487 + 39;
+                //for iphone X
+                float x = weighted_x * 60 + 35;
+                float y= weighted_y * 39.773 + 26;
                 for (UIView *i in weakSelf.view.subviews){
                     if([i isKindOfClass:[UIView class]]){
                         UILabel *newLbl = (UILabel *)i;

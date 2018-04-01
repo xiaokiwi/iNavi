@@ -43,13 +43,13 @@
     [super viewDidLoad];
     
     //Change the Config point here!!!
-    x_point = 300;
-    y_point = 200;
+    x_point = 3.8;
+    y_point = 0;
     
     NSLog(@"Starting Config");
     
 //    //testing database
-//    DataBaseHandle * dataBaseHandle = [DataBaseHandle dataBaseHandleWithDataBaseName:@"Rssi4DB"];
+    DataBaseHandle * dataBaseHandle = [DataBaseHandle dataBaseHandleWithDataBaseName:@"Rssi4DB"];
 //    RssiEntity * entity2 = [[RssiEntity alloc] init];
 //    entity2.x = self->x_point;
 //    entity2.y = self->y_point;
@@ -59,7 +59,7 @@
 //    [dataBaseHandle insertDataWithKeyValues:entity2];
 //    //NSLog(@"Config 3 x:%f y:%f heading: %d  value: %d", self->x_point, self->y_point,self->heading,avag_rssi_three);
 //    //NSMutableArray * result = [dataBaseHandle selectOneByrssi:1 value:-69];
-//    [dataBaseHandle selectAllKeyValues];
+    [dataBaseHandle selectAllKeyValues];
     
     // Update Data
     //[dataBaseHandle updateRssi:-80 x_value:100 y_value:321];
@@ -93,7 +93,7 @@
 //    }
     
     //add a new point
-    UIButton *point = [[UIButton alloc]initWithFrame:CGRectMake(x_point, y_point, 30, 30)];
+    UIButton *point = [[UIButton alloc]initWithFrame:CGRectMake(60*x_point+35, 39.773*y_point+16, 50, 50)];
     point.backgroundColor = [UIColor redColor];
     [point addTarget:self action:@selector(startconfig) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:point];
@@ -129,7 +129,7 @@
     self.view.contentMode = UIViewContentModeScaleAspectFill;
     self.view.layer.contents = (__bridge id _Nullable)(backGroundImage.CGImage);
     
-    PowerLevel = 70;
+    PowerLevel = 40;
     //Set bluetooth Delegate
     [self babyDelegate];
 }
@@ -199,7 +199,7 @@
         //Searching for different BrtBeacon
         NSLog(@"%@ and RSSI: %d", peripheral.identifier, [RSSI intValue]);
 
-        if ([[peripheral.identifier UUIDString] isEqualToString:@"307813A9-C731-67B8-4889-DB1833C17491"]) {
+        if ([[peripheral.identifier UUIDString] isEqualToString:@"A8EBB481-DFD3-C514-8433-99709FBF29C9"]) {
             //NSLog(@"RSSI:%@", RSSI);
             if (ignore_count > 5 && [RSSI intValue] != 127) {
                 if ( [rssi_array_one count] < self->PowerLevel ) {
@@ -248,10 +248,10 @@
                     prev_rssi1 = avag_rssi_one;
 
                     //Translate RSSI value into distance
-                    double txPower = -56;
+                    double txPower = -55;
 
                     distance_one = pow(10,((txPower - avag_rssi_one)/22));
-                    NSLog(@"Mint has RSSI: %d and %.1f meters", avag_rssi_one, distance_one);
+                    NSLog(@"Purple has RSSI: %d and %.1f meters", avag_rssi_one, distance_one);
                     [rssi_array_one removeAllObjects];
                     flag = 1;
                     //Config process
@@ -320,10 +320,10 @@
                      prev_rssi2 = avag_rssi_two;
 
                      //Translate RSSI value into distance
-                     double txPower = -56;
+                     double txPower = -55;
 
                      distance_two = pow(10,((txPower - avag_rssi_two)/22));
-                     NSLog(@"Purple has RSSI: %d and %.1f meters", avag_rssi_two, distance_two);
+                     NSLog(@"Mint has RSSI: %d and %.1f meters", avag_rssi_two, distance_two);
                      [rssi_array_two removeAllObjects];
                      flag = 1;
                      //Config process
@@ -343,7 +343,7 @@
                  ignore_count = ignore_count + 1;
              }
         }
-        else if ([[peripheral.identifier UUIDString] isEqualToString:@"A8EBB481-DFD3-C514-8433-99709FBF29C9"]) {
+        else if ([[peripheral.identifier UUIDString] isEqualToString:@"307813A9-C731-67B8-4889-DB1833C17491"]) {
             //NSLog(@"RSSI:%@", RSSI);
             if (ignore_count > 5 && [RSSI intValue] != 127) {
                 if ( [rssi_array_three count] < self->PowerLevel ) {
@@ -392,7 +392,7 @@
                     prev_rssi3 = avag_rssi_three;
 
                     //Translate RSSI value into distance
-                    double txPower = -56;
+                    double txPower = -55;
 
                     distance_three = pow(10,((txPower - avag_rssi_three)/22));
                     NSLog(@"Blue has RSSI: %d and %.1f meters", avag_rssi_three, distance_three);
