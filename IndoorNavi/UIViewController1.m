@@ -223,19 +223,15 @@
 {
     float mHeading = newHeading.magneticHeading;
     if ((mHeading >= 315) || (mHeading <= 45)) {
-        //[direction setText:@"N"];
         self->heading = 1;
         //NSLog(@"N!!!!!!!!");
     }else if ((mHeading > 45) && (mHeading <= 135)) {
-        //[direction setText:@"E"];
         self->heading = 2;
         //NSLog(@"E!!!!!!!!");
     }else if ((mHeading > 135) && (mHeading <= 225)) {
-        //[direction setText:@"S"];
         self->heading = 3;
         //NSLog(@"S!!!!!!!!");
     }else if ((mHeading > 225) && (mHeading <= 315)) {
-        //[direction setText:@"W"];
         self->heading = 4;
         //NSLog(@"W!!!!!!!!");
     }
@@ -251,6 +247,7 @@
     __weak typeof(self) weakSelf = self;
     // database opened
     DataBaseHandle * dataBaseHandle = [DataBaseHandle dataBaseHandleWithDataBaseName:@"Rssi4DB"];
+    //print all data in database
     [dataBaseHandle selectAllKeyValues];
     
     //Store previous two rssi values

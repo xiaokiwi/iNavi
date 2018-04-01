@@ -41,15 +41,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //Change the Config point here!!!
     x_point = 300;
     y_point = 200;
     
     NSLog(@"Starting Config");
-
+    
 //    //testing database
 //    DataBaseHandle * dataBaseHandle = [DataBaseHandle dataBaseHandleWithDataBaseName:@"Rssi4DB"];
 //    RssiEntity * entity2 = [[RssiEntity alloc] init];
-//    //entity2.number = 72;
 //    entity2.x = self->x_point;
 //    entity2.y = self->y_point;
 //    entity2.beacon = 2;
@@ -92,7 +93,7 @@
 //    }
     
     //add a new point
-    UIButton *point = [[UIButton alloc]initWithFrame:CGRectMake(x_point, y_point, 25, 25)];
+    UIButton *point = [[UIButton alloc]initWithFrame:CGRectMake(x_point, y_point, 30, 30)];
     point.backgroundColor = [UIColor redColor];
     [point addTarget:self action:@selector(startconfig) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:point];
@@ -131,25 +132,6 @@
     PowerLevel = 70;
     //Set bluetooth Delegate
     [self babyDelegate];
-
-//        self->locationManager=[[CLLocationManager alloc] init];
-//        self->locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-//        self->locationManager.delegate = self;
-//        //Start the compass updates.
-//        [self->locationManager startUpdatingHeading];
-//
-//        UIButton *clicked = (UIButton *) xy;
-//
-//        RssiEntity * entity1 = [[RssiEntity alloc] init];
-//        //entity.number = nil;
-//        entity1.x = 100;
-//        entity1.y = 100;
-//        entity1.beacon = 1;
-//        entity1.value = avag_rssi_one;
-//        entity1.heading = self->heading;
-//        [dataBaseHandle insertDataWithKeyValues:entity1];
-//        NSLog(@"Config 1");
-
 }
 
 
@@ -465,6 +447,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end
