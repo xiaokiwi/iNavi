@@ -43,8 +43,8 @@
     [super viewDidLoad];
     
     //Change the Config point here!!!
-    x_point = 0;
-    y_point = 0;
+    x_point = 1.06;
+    y_point = 8.215;
     
     NSLog(@"Starting Config");
     
@@ -93,7 +93,7 @@
 //    }
     
     //add a new point
-    UIButton *point = [[UIButton alloc]initWithFrame:CGRectMake(36.36*x_point+35, 66.8*y_point+26, 50, 50)];
+    UIButton *point = [[UIButton alloc]initWithFrame:CGRectMake(36.36*x_point+35, 64.13*y_point+26, 50, 50)];
     point.backgroundColor = [UIColor redColor];
     [point addTarget:self action:@selector(startconfig) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:point];
@@ -248,10 +248,10 @@
                     prev_rssi1 = avag_rssi_one;
 
                     //Translate RSSI value into distance
-                    double txPower = -54;
+                    //double txPower = -54;
 
-                    distance_one = pow(10,((txPower - avag_rssi_one)/22));
-                    NSLog(@"Beacon1 has RSSI: %d and %.1f meters", avag_rssi_one, distance_one);
+                    //distance_one = pow(10,((txPower - avag_rssi_one)/22));
+                    //NSLog(@"Beacon1 has RSSI: %d and %.1f meters", avag_rssi_one, distance_one);
                     [rssi_array_one removeAllObjects];
                     flag = 1;
                     //Config process
@@ -320,10 +320,10 @@
                      prev_rssi2 = avag_rssi_two;
 
                      //Translate RSSI value into distance
-                     double txPower = -54;
+                     //double txPower = -54;
 
-                     distance_two = pow(10,((txPower - avag_rssi_two)/22));
-                     NSLog(@"Beacon2 has RSSI: %d and %.1f meters", avag_rssi_two, distance_two);
+                     //distance_two = pow(10,((txPower - avag_rssi_two)/22));
+                     //NSLog(@"Beacon2 has RSSI: %d and %.1f meters", avag_rssi_two, distance_two);
                      [rssi_array_two removeAllObjects];
                      flag = 1;
                      //Config process
@@ -392,10 +392,10 @@
                     prev_rssi3 = avag_rssi_three;
 
                     //Translate RSSI value into distance
-                    double txPower = -54;
+                    //double txPower = -54;
 
-                    distance_three = pow(10,((txPower - avag_rssi_three)/22));
-                    NSLog(@"Beacon3 has RSSI: %d and %.1f meters", avag_rssi_three, distance_three);
+                    //distance_three = pow(10,((txPower - avag_rssi_three)/22));
+                    //NSLog(@"Beacon3 has RSSI: %d and %.1f meters", avag_rssi_three, distance_three);
                     [rssi_array_three removeAllObjects];
                     flag = 1;
                     //Config process

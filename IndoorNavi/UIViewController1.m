@@ -203,7 +203,7 @@
     self->locationManager.delegate = self;
     [self->locationManager startUpdatingHeading];
     
-    PowerLevel = 50;
+    PowerLevel = 40;
     //Set bluetooth Delegate
     [self babyDelegate];
     
@@ -332,7 +332,7 @@
 //                    prev_rssi1 = avag_rssi_one;
                     
                     //Translate RSSI value into distance
-                    double txPower = -54;
+                    double txPower = -57;
                     
                     //                    if (avag_rssi_one == 0) {
                     //                        distance_one = -1.0;
@@ -405,7 +405,7 @@
                     //Translate RSSI value into distance
                     double txPower = -52;
                     
-                    distance_two = pow(10,((txPower - avag_rssi_two)/19));
+                    distance_two = pow(10,((txPower - avag_rssi_two)/20));
                     NSLog(@"Beacon2 has RSSI: %d and %.1f meters", avag_rssi_two, distance_two);
                     [rssi_array_two removeAllObjects];
                     flag = 1;
@@ -546,15 +546,15 @@
             float weighted_x;
             float weighted_y;
             if (finger_x != 0 && finger_y != 0){
-                weighted_x = (10*finger_x/100) + (90*position.x/100);
-                weighted_y = (10*finger_y/100) + (90*position.y/100);
+                weighted_x = (60*finger_x/100) + (40*position.x/100);
+                weighted_y = (60*finger_y/100) + (40*position.y/100);
             }
             else {
                 weighted_x = position.x;
                 weighted_y = position.y;
             }
 
-            if (position.x != 0 && position.x >=0 && position.x <= 8.25 && position.y >= 0 && position.y <= 10.48) {
+            if (position.x != 0) {
                 //convert to pixels
                 NSLog(@"WEIGHTED xy: %.1f and %.1f", weighted_x, weighted_y);
                 //for iphone_7plus
@@ -563,7 +563,7 @@
                 //NSLog(@"weighted pixel: %.1f and %.1f", x, y);
                 //for iphone X
                 float x = weighted_x * 36.36 + 35;
-                float y= weighted_y * 66.8 + 26;
+                float y= weighted_y * 64.13 + 26;
                 for (UIView *i in weakSelf.view.subviews){
                     if([i isKindOfClass:[UIView class]]){
                         UILabel *newLbl = (UILabel *)i;
