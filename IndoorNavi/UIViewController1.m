@@ -248,7 +248,7 @@
     // database opened
     DataBaseHandle * dataBaseHandle = [DataBaseHandle dataBaseHandleWithDataBaseName:@"Rssi4DB"];
     //print all data in database
-    [dataBaseHandle selectAllKeyValues];
+    //[dataBaseHandle selectAllKeyValues];
     
     //Store previous two rssi values
     static int prev_rssi1 = 0;
@@ -281,9 +281,9 @@
     [baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
         //Searching for different BrtBeacon
         
-        NSLog(@"%@ and RSSI: %d", peripheral.identifier, [RSSI intValue]);
+        //NSLog(@"%@ and RSSI: %d", peripheral.name, [RSSI intValue]);
         
-        if ([[peripheral.identifier UUIDString] isEqualToString:@"A8EBB481-DFD3-C514-8433-99709FBF29C9"]) {
+        if ([peripheral.name isEqual:@"BrtBeacon01"]) {
             //NSLog(@"RSSI:%@", RSSI);
             if (ignore_count > 2 && [RSSI intValue] != 127) {
                 if ( [rssi_array_one count] < self->PowerLevel ) {
@@ -323,16 +323,16 @@
                     avag_rssi_one = rssi_sum / rssi_count;
                     
                     //Moving average Algorithm
-                    if (prev_rssi1 == 0 || prevprev_rssi1 == 0) {
-                        prev_rssi1 = avag_rssi_one;
-                        prevprev_rssi1 = avag_rssi_one;
-                    }
-                    avag_rssi_one = (avag_rssi_one + prev_rssi1 + prevprev_rssi1)/3;
-                    prevprev_rssi1 = prev_rssi1;
-                    prev_rssi1 = avag_rssi_one;
+//                    if (prev_rssi1 == 0 || prevprev_rssi1 == 0) {
+//                        prev_rssi1 = avag_rssi_one;
+//                        prevprev_rssi1 = avag_rssi_one;
+//                    }
+//                    avag_rssi_one = (avag_rssi_one + prev_rssi1 + prevprev_rssi1)/3;
+//                    prevprev_rssi1 = prev_rssi1;
+//                    prev_rssi1 = avag_rssi_one;
                     
                     //Translate RSSI value into distance
-                    double txPower = -55;
+                    double txPower = -54;
                     
                     //                    if (avag_rssi_one == 0) {
                     //                        distance_one = -1.0;
@@ -344,8 +344,8 @@
                     //                    else {
                     //                        distance_one = (0.89976)*pow(ratio,7.7095) + 0.111;
                     //                    }
-                    distance_one = pow(10,((txPower - avag_rssi_one)/22));
-                    NSLog(@"Purple has RSSI: %d and %.1f meters", avag_rssi_one, distance_one);
+                    distance_one = pow(10,((txPower - avag_rssi_one)/20));
+                    NSLog(@"Beacon1 has RSSI: %d and %.1f meters", avag_rssi_one, distance_one);
                     [rssi_array_one removeAllObjects];
                     flag = 1;
                 }
@@ -354,7 +354,7 @@
                 ignore_count = ignore_count + 1;
             }
         }
-        else if ([[peripheral.identifier UUIDString] isEqualToString:@"66759CA1-7928-1CF1-FB19-33DA8F7E62F2"]) {
+        else if ([peripheral.name isEqual:@"BrtBeacon02"]) {
             //NSLog(@"RSSI:%@", RSSI);
             if (ignore_count > 2 && [RSSI intValue] != 127) {
                 if ( [rssi_array_two count] < self->PowerLevel ) {
@@ -394,19 +394,19 @@
                     avag_rssi_two = rssi_sum / rssi_count;
                     //NSLog(@"%@ has RSSI: %d and %.1f meters", peripheral.name, avag_rssi_two, distance_two);
                     //Moving average Algorithm
-                    if (prev_rssi2 == 0 || prevprev_rssi2 == 0) {
-                        prev_rssi2 = avag_rssi_two;
-                        prevprev_rssi2 = avag_rssi_two;
-                    }
-                    avag_rssi_two = (avag_rssi_two + prev_rssi2 + prevprev_rssi2)/3;
-                    prevprev_rssi2 = prev_rssi2;
-                    prev_rssi2 = avag_rssi_two;
+//                    if (prev_rssi2 == 0 || prevprev_rssi2 == 0) {
+//                        prev_rssi2 = avag_rssi_two;
+//                        prevprev_rssi2 = avag_rssi_two;
+//                    }
+//                    avag_rssi_two = (avag_rssi_two + prev_rssi2 + prevprev_rssi2)/3;
+//                    prevprev_rssi2 = prev_rssi2;
+//                    prev_rssi2 = avag_rssi_two;
                     
                     //Translate RSSI value into distance
-                    double txPower = -55;
+                    double txPower = -52;
                     
-                    distance_two = pow(10,((txPower - avag_rssi_two)/22));
-                    NSLog(@"Mint has RSSI: %d and %.1f meters", avag_rssi_two, distance_two);
+                    distance_two = pow(10,((txPower - avag_rssi_two)/19));
+                    NSLog(@"Beacon2 has RSSI: %d and %.1f meters", avag_rssi_two, distance_two);
                     [rssi_array_two removeAllObjects];
                     flag = 1;
                 }
@@ -415,7 +415,7 @@
                 ignore_count = ignore_count + 1;
             }
         }
-        else if ([[peripheral.identifier UUIDString] isEqualToString:@"307813A9-C731-67B8-4889-DB1833C17491"]) {
+        else if ([peripheral.name isEqual:@"BrtBeacon03"]) {
             //NSLog(@"RSSI:%@", RSSI);
             if (ignore_count > 2 && [RSSI intValue] != 127) {
                 if ( [rssi_array_three count] < self->PowerLevel ) {
@@ -455,19 +455,18 @@
                     avag_rssi_three = rssi_sum / rssi_count;
                     //NSLog(@"%@ has RSSI: %d and %.1f meters", peripheral.name, avag_rssi_three, distance_three);
                     //Moving average Algorithm
-                    if (prev_rssi3 == 0 || prevprev_rssi3 == 0) {
-                        prev_rssi3 = avag_rssi_three;
-                        prevprev_rssi3 = avag_rssi_three;
-                    }
-                    avag_rssi_three = (avag_rssi_three + prev_rssi3 + prevprev_rssi3)/3;
-                    prevprev_rssi3 = prev_rssi3;
-                    prev_rssi3 = avag_rssi_three;
-                    
+//                    if (prev_rssi3 == 0 || prevprev_rssi3 == 0) {
+//                        prev_rssi3 = avag_rssi_three;
+//                        prevprev_rssi3 = avag_rssi_three;
+//                    }
+//                    avag_rssi_three = (avag_rssi_three + prev_rssi3 + prevprev_rssi3)/3;
+//                    prevprev_rssi3 = prev_rssi3;
+//                    prev_rssi3 = avag_rssi_three;
                     //Translate RSSI value into distance
-                    double txPower = -55;
+                    double txPower = -54;
                     
-                    distance_three = pow(10,((txPower - avag_rssi_three)/22));
-                    NSLog(@"Blue has RSSI: %d and %.1f meters", avag_rssi_three, distance_three);
+                    distance_three = pow(10,((txPower - avag_rssi_three)/20));
+                    NSLog(@"Beacon3 has RSSI: %d and %.1f meters", avag_rssi_three, distance_three);
                     [rssi_array_three removeAllObjects];
                     flag = 1;
                 }
@@ -499,27 +498,27 @@
                 for (NSString *string in xy_one) {
                     //if xy is already in the dictionary
                     if ([xy_dict objectForKey:string]) {
-                        [xy_dict setObject:@([[xy_dict objectForKey:string] integerValue] + avag_rssi_one + 127) forKey:string];
+                        [xy_dict setObject:@([[xy_dict objectForKey:string] integerValue] + 2*(avag_rssi_one + 127)) forKey:string];
                     }
                     //if xy is not in the dictionary
                     else {
-                        [xy_dict setObject:@(avag_rssi_one) forKey:string];
+                        [xy_dict setObject:@(2*avag_rssi_one) forKey:string];
                     }
                 }
                 for (NSString *string in xy_two) {
                     if ([xy_dict objectForKey:string]) {
-                        [xy_dict setObject:@([[xy_dict objectForKey:string] integerValue] + avag_rssi_two + 127) forKey:string];
+                        [xy_dict setObject:@([[xy_dict objectForKey:string] integerValue] + 2*(avag_rssi_two + 127)) forKey:string];
                     }
                     else {
-                        [xy_dict setObject:@(avag_rssi_two) forKey:string];
+                        [xy_dict setObject:@(2*avag_rssi_two) forKey:string];
                     }
                 }
                 for (NSString *string in xy_three) {
                     if ([xy_dict objectForKey:string]) {
-                        [xy_dict setObject:@([[xy_dict objectForKey:string] integerValue] + avag_rssi_three + 127) forKey:string];
+                        [xy_dict setObject:@([[xy_dict objectForKey:string] integerValue] + 2*(avag_rssi_three + 127)) forKey:string];
                     }
                     else {
-                        [xy_dict setObject:@(avag_rssi_three) forKey:string];
+                        [xy_dict setObject:@(2*avag_rssi_three) forKey:string];
                     }
                 }
                 NSLog(@"%@", xy_dict);
@@ -547,15 +546,15 @@
             float weighted_x;
             float weighted_y;
             if (finger_x != 0 && finger_y != 0){
-                weighted_x = (70*finger_x/100) + (30*position.x/100);
-                weighted_y = (70*finger_y/100) + (30*position.y/100);
+                weighted_x = (10*finger_x/100) + (90*position.x/100);
+                weighted_y = (10*finger_y/100) + (90*position.y/100);
             }
             else {
                 weighted_x = position.x;
                 weighted_y = position.y;
             }
 
-            if (position.x != 0) {
+            if (position.x != 0 && position.x >=0 && position.x <= 8.25 && position.y >= 0 && position.y <= 10.48) {
                 //convert to pixels
                 NSLog(@"WEIGHTED xy: %.1f and %.1f", weighted_x, weighted_y);
                 //for iphone_7plus
@@ -563,8 +562,8 @@
                 //float y = weighted_y*38.068 + 39; //670/17.6
                 //NSLog(@"weighted pixel: %.1f and %.1f", x, y);
                 //for iphone X
-                float x = weighted_x * 60 + 35;
-                float y= weighted_y * 39.773 + 26;
+                float x = weighted_x * 36.36 + 35;
+                float y= weighted_y * 66.8 + 26;
                 for (UIView *i in weakSelf.view.subviews){
                     if([i isKindOfClass:[UIView class]]){
                         UILabel *newLbl = (UILabel *)i;
@@ -584,7 +583,7 @@
     //Set searching filter
     [baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI) {
         //Only search device with this prefix
-        if ([peripheralName hasPrefix:@"EST"] ) {
+        if ([peripheralName hasPrefix:@"BrtBeacon"] ) {
             return YES;
         }
         return NO;

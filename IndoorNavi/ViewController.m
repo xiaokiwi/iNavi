@@ -43,7 +43,7 @@
     [super viewDidLoad];
     
     //Change the Config point here!!!
-    x_point = 3.8;
+    x_point = 0;
     y_point = 0;
     
     NSLog(@"Starting Config");
@@ -93,7 +93,7 @@
 //    }
     
     //add a new point
-    UIButton *point = [[UIButton alloc]initWithFrame:CGRectMake(60*x_point+35, 39.773*y_point+16, 50, 50)];
+    UIButton *point = [[UIButton alloc]initWithFrame:CGRectMake(36.36*x_point+35, 66.8*y_point+26, 50, 50)];
     point.backgroundColor = [UIColor redColor];
     [point addTarget:self action:@selector(startconfig) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:point];
@@ -197,9 +197,9 @@
     //Handle Delegate
     [baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
         //Searching for different BrtBeacon
-        NSLog(@"%@ and RSSI: %d", peripheral.identifier, [RSSI intValue]);
+        //NSLog(@"%@ and RSSI: %d", peripheral.identifier, [RSSI intValue]);
 
-        if ([[peripheral.identifier UUIDString] isEqualToString:@"A8EBB481-DFD3-C514-8433-99709FBF29C9"]) {
+        if ([peripheral.name isEqual:@"BrtBeacon01"]) {
             //NSLog(@"RSSI:%@", RSSI);
             if (ignore_count > 5 && [RSSI intValue] != 127) {
                 if ( [rssi_array_one count] < self->PowerLevel ) {
@@ -248,10 +248,10 @@
                     prev_rssi1 = avag_rssi_one;
 
                     //Translate RSSI value into distance
-                    double txPower = -55;
+                    double txPower = -54;
 
                     distance_one = pow(10,((txPower - avag_rssi_one)/22));
-                    NSLog(@"Purple has RSSI: %d and %.1f meters", avag_rssi_one, distance_one);
+                    NSLog(@"Beacon1 has RSSI: %d and %.1f meters", avag_rssi_one, distance_one);
                     [rssi_array_one removeAllObjects];
                     flag = 1;
                     //Config process
@@ -272,7 +272,7 @@
                 ignore_count = ignore_count + 1;
             }
         }
-        else if ([[peripheral.identifier UUIDString] isEqualToString:@"66759CA1-7928-1CF1-FB19-33DA8F7E62F2"]) {
+        else if ([peripheral.name isEqual:@"BrtBeacon02"]) {
              //NSLog(@"RSSI:%@", RSSI);
              if (ignore_count > 5 && [RSSI intValue] != 127) {
                  if ( [rssi_array_two count] < self->PowerLevel ) {
@@ -320,10 +320,10 @@
                      prev_rssi2 = avag_rssi_two;
 
                      //Translate RSSI value into distance
-                     double txPower = -55;
+                     double txPower = -54;
 
                      distance_two = pow(10,((txPower - avag_rssi_two)/22));
-                     NSLog(@"Mint has RSSI: %d and %.1f meters", avag_rssi_two, distance_two);
+                     NSLog(@"Beacon2 has RSSI: %d and %.1f meters", avag_rssi_two, distance_two);
                      [rssi_array_two removeAllObjects];
                      flag = 1;
                      //Config process
@@ -343,7 +343,7 @@
                  ignore_count = ignore_count + 1;
              }
         }
-        else if ([[peripheral.identifier UUIDString] isEqualToString:@"307813A9-C731-67B8-4889-DB1833C17491"]) {
+        else if ([peripheral.name isEqual:@"BrtBeacon03"]) {
             //NSLog(@"RSSI:%@", RSSI);
             if (ignore_count > 5 && [RSSI intValue] != 127) {
                 if ( [rssi_array_three count] < self->PowerLevel ) {
@@ -392,10 +392,10 @@
                     prev_rssi3 = avag_rssi_three;
 
                     //Translate RSSI value into distance
-                    double txPower = -55;
+                    double txPower = -54;
 
                     distance_three = pow(10,((txPower - avag_rssi_three)/22));
-                    NSLog(@"Blue has RSSI: %d and %.1f meters", avag_rssi_three, distance_three);
+                    NSLog(@"Beacon3 has RSSI: %d and %.1f meters", avag_rssi_three, distance_three);
                     [rssi_array_three removeAllObjects];
                     flag = 1;
                     //Config process
@@ -421,7 +421,7 @@
     //Set searching filter
     [baby setFilterOnDiscoverPeripherals:^BOOL(NSString *peripheralName, NSDictionary *advertisementData, NSNumber *RSSI) {
         //Only search device with this prefix
-        if ([peripheralName hasPrefix:@"EST"] ) {
+        if ([peripheralName hasPrefix:@"BrtBeacon"] ) {
             return YES;
         }
         return NO;
