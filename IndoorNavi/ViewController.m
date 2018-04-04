@@ -43,9 +43,23 @@
     [super viewDidLoad];
     
     //Change the Config point here!!!
-    x_point = 1.06;
-    y_point = 8.215;
+    x_point = 7.6;
+    y_point = 1;
     
+    //convert real world distance to pixel
+    static float x_actual_distance = 9.2;
+    static float y_actual_distance = 15.6;
+    //for iphone X
+//        float x_scale = 300/x_actual_distance;
+//        float y_scale = 700/y_actual_distance;
+//        float x_offset = 35;
+//        float y_offset = 26;
+    
+    //for iphone_7plus
+    float x_scale = 360/x_actual_distance;
+    float y_scale = 650/y_actual_distance;
+    float x_offset = 26;
+    float y_offset = 26;
     NSLog(@"Starting Config");
     
 //    //testing database
@@ -93,7 +107,9 @@
 //    }
     
     //add a new point
-    UIButton *point = [[UIButton alloc]initWithFrame:CGRectMake(36.36*x_point+35, 64.13*y_point+26, 50, 50)];
+    UIButton *point = [[UIButton alloc]initWithFrame:CGRectMake(x_scale*x_point+x_offset, y_scale*y_point+y_offset, 30, 30)];
+   
+
     point.backgroundColor = [UIColor redColor];
     [point addTarget:self action:@selector(startconfig) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:point];
@@ -193,6 +209,7 @@
     static NSMutableArray *rssi_array_three;
     rssi_array_three = [[NSMutableArray alloc] init];
     static int flag = 0;
+    
     
     //Handle Delegate
     [baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
